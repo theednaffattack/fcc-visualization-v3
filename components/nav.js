@@ -2,7 +2,9 @@ import Head from './head'
 import Link from 'next/link'
 
 const links = [
-  { href: 'https://github.com/segmentio/create-next-app', label: 'Github' }
+  { href: './barchart', label: 'Bar Chart' },
+  { href: './scatterplot', label: 'Scatterplot' },
+  { href: 'https://github.com/theednaffattack/fcc-visualization-v3', label: 'Github' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`
   return link

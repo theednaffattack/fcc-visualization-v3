@@ -8,7 +8,7 @@ import PointSeries from "../components/PointSeries";
 // import DataTable from "../components/DataTable";
 
 // const data = await import('../data/fcc-json-response-data.json')
-import * as gdpData from "/Users/eddienaff/Desktop/gitToDelete/data-ui/data/fcc-json-response-data.json";
+// import * as gdpData from "/Users/eddienaff/Desktop/gitToDelete/data-ui/data/fcc-json-response-data.json";
 
 const alps = [
   {
@@ -374,7 +374,7 @@ const alps = [
   }
 ];
 
-const formattedData = gdpData.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
+// const formattedData = gdpData.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
 // const formattedAlpsData = alps.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
 // from MDN:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
@@ -405,7 +405,7 @@ console.log(
     : parseInt(alps[2]["Time"].slice(3, 5))
 );
 
-const { description } = gdpData;
+const  description  = "";
 
 export default () => (
   <div id="blah">

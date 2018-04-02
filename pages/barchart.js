@@ -8,7 +8,8 @@ import BarChart from "../components/BarChart";
 // import DataTable from "../components/DataTable";
 
 // const data = await import('../data/fcc-json-response-data.json')
-import * as gdpData from "/Users/eddienaff/Desktop/gitToDelete/data-ui/data/fcc-json-response-data.json";
+// import * as gdpData from "/Users/eddienaff/Desktop/gitToDelete/data-ui/data/fcc-json-response-data.json";
+import * as gdpData from "/Users/admin/Documents/Projects/fcc-visualization-v3/data/fcc-json-response-data.json"
 
 const formattedData = gdpData.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
 
