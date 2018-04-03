@@ -1,4 +1,4 @@
 import { timeSeriesData } from "./timeSeriesData";
-import { formattedDate } from "./timeSeriesData";
+import { formattedDate, bicycleTimingData } from "./timeSeriesData";
 
-export { timeSeriesData, formattedDate };
+export { timeSeriesData, formattedDate, bicycleTimingData };

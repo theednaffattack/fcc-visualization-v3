@@ -79,6 +79,13 @@ export const formattedDate = someDate => {
   // return `${textMonth}/${dd}/${yyyy}`;
 };
 
+export const bicycleTimingData = someDateWithMinsSecs => {
+  // doin the most right here
+  let mins = someDateWithMinsSecs.getMinutes();
+  let secs = someDateWithMinsSecs.getSeconds();
+  return `${mins}:${secs}`
+};
+
 export const timeSeriesData = appleStock
   .filter((d, i) => i % 120 === 0)
   .map(d => ({

@@ -27,7 +27,8 @@ import colors from "@data-ui/theme/build/color";
 import {
   // circlePackData,
   timeSeriesData,
-  formattedDate
+  formattedDate,
+  bicycleTimingData
   // categoricalData,
   // groupKeys,
   // stackedData,
@@ -69,8 +70,12 @@ export default props => (
   <WithTooltip
     renderTooltip={({ event, datum, color }) => (
       <div>
-        <StyledXH3>${datum.y}</StyledXH3>
-        <StyledP>{formattedDate(datum.x)}</StyledP>
+        <StyledXH3>{datum.y}</StyledXH3>
+        <StyledP>{bicycleTimingData(datum.x)}</StyledP>
+        <StyledP>{datum.name}</StyledP>
+        <StyledP>{datum.nationality}</StyledP>
+        {datum.allegation ? <StyledP>{datum.allegation}</StyledP> : <StyledP>He's clean!!!</StyledP> }
+        <StyledP>{datum.url}</StyledP>
       </div>
     )}
     tooltipProps={{
@@ -107,7 +112,7 @@ export default props => (
       <PointSeries
         data={props.data.map((d, i) => ({
           ...d,
-          fill: `url(#${i === 4 ? "lines" : "gradient"})`,
+          fill: `url(#${d.allegation.length < 1 ? "lines" : "gradient"})`,
           size: 10
         }))}
         fill="url(#aqua_lightaqua_gradient)"

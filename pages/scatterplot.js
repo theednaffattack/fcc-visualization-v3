@@ -391,8 +391,20 @@ const formattedAlpsData = alps.map(x => ({
     x["Time"].slice(3, 5).length < 2
       ? parseInt(x["Time"].slice(3, 5) + "0 ")
       : parseInt(x["Time"].slice(3, 5))
-  ), //, ${x["Time"].replace(":", "")}`),
-  y: x["Place"]
+  ),
+  y: x["Place"],
+  name: x["Name"],
+  nationality: x["Nationality"],
+  allegation: x["Doping"],
+  url: x["URL"]
+  // Time: "36:50",
+  //   Place: 1,
+  //   Seconds: 2210,
+  //   Name: "Marco Pantani",
+  //   Year: 1995,
+  //   Nationality: "ITA",
+  //   Doping: "Alleged drug use during 1995 due to high hematocrit levels",
+  //   URL:
 }));
 
 console.log("formattedAlpsData");
@@ -414,7 +426,8 @@ export default () => (
     <FlexContainer>
       <Row>
         <FlexItem>
-          <StyledH1>Doping</StyledH1>
+          <StyledH3>Major Competitive Cycling</StyledH3>
+          <StyledH1>Doping Allegations</StyledH1>
         </FlexItem>
         <FlexItem>
           <PointSeries width={900} height={500} data={formattedAlpsData} />
@@ -426,8 +439,14 @@ export default () => (
 );
 
 const StyledH1 = styled.h1`
-  color: steelblue;
+  color: #ca1f73;
+  margin-top: 6px
 `;
+
+const StyledH3 = styled.h2`
+color: steelblue;
+margin-bottom: 0;
+`
 
 const FlexContainer = styled.div`
   padding: 0;
@@ -462,17 +481,3 @@ const FlexHeader = styled.span`
   font-weight: bold;
   font-size: 3em;
 `;
-
-const waaa = [
-  { x: new Date("Tue Apr 24 2007 00:00:00 GMT-0700 (PDT)"), y: 93.24 },
-  { x: new Date("Fri Oct 12 2007 00:00:00 GMT-0700 (PDT)"), y: 167.25 },
-  { x: new Date("Mon Apr 07 2008 00:00:00 GMT-0700 (PDT)"), y: 155.89 },
-  { x: new Date("Thu Sep 25 2008 00:00:00 GMT-0700 (PDT)"), y: 131.93 },
-  { x: new Date("Mon Mar 16 2009 00:00:00 GMT-0700 (PDT)"), y: 95.42 },
-  { x: new Date("Wed Sep 02 2009 00:00:00 GMT-0700 (PDT)"), y: 165.18 },
-  { x: new Date("Thu Feb 18 2010 00:00:00 GMT-0800 (PST)"), y: 202.93 },
-  { x: new Date("Thu Aug 05 2010 00:00:00 GMT-0700 (PDT)"), y: 261.7 },
-  { x: new Date("Tue Jan 25 2011 00:00:00 GMT-0800 (PST)"), y: 341.4 },
-  { x: new Date("Mon Jul 18 2011 00:00:00 GMT-0700 (PDT)"), y: 373.8 },
-  { x: new Date("Fri Jan 06 2012 00:00:00 GMT-0800 (PST)"), y: 422.4 }
-];

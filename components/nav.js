@@ -4,6 +4,7 @@ import Link from 'next/link'
 const links = [
   { href: './barchart', label: 'Bar Chart' },
   { href: './scatterplot', label: 'Scatterplot' },
+  { href: './geomap', label: 'GeoMercator' },
   { href: 'https://github.com/theednaffattack/fcc-visualization-v3', label: 'Github' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`
