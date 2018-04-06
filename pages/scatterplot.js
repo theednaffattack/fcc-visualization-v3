@@ -407,8 +407,7 @@ const formattedAlpsData = alps.map(x => ({
   //   URL:
 }));
 
-console.log("formattedAlpsData");
-console.log(formattedAlpsData);
+
 console.log("alps[2]['Time']");
 console.log(alps[2]["Time"].slice(0, 2));
 console.log(

@@ -12,6 +12,8 @@
     "@vx/gradient": "0.0.153",
     "@vx/mock-data": "0.0.153",
     "aphrodite": "2.1.0",
+    "d3": "^5.0.0",
+    "d3-geo-projection": "^2.4.0",
     "next": "5.1.0",
     "react": "16.3.0",
     "react-dom": "16.3.0",
