@@ -1,25 +1,75 @@
 import React from "react";
 import { GradientTealBlue, RadialGradient } from "@vx/gradient";
 import { Mercator } from "@vx/geo";
-import { genRandomNormalPoints } from "@vx/mock-data";
-import { GlyphCircle } from "@vx/glyph";
+import { GlyphDot, GlyphCircle } from "@vx/glyph";
 import * as topojson from "topojson-client";
 import topology from "../static/world-topo.json";
 import meteorStrikes from "../static/meteor-strike-data.json";
+import * as d3 from "d3";
 
-const points = genRandomNormalPoints(600).filter((d, i) => {
-  return i < 600;
-});
+{
+  /* <circle
+key={ `marker-${i}` }
+cx={ feature.geometry ? `${projection(feature.geometry.coordinates)[0]}` : 444 }
+cy={ feature.geometry ? `${projection(feature.geometry.coordinates)[1]}` : 333 }
+r={ 8 } // feature.properties.mass  / 630 * 100 / 10000
+fill="#E91E63"
+opacity="0.5"
+stroke="#FFFFFF"
+className="marker" 
+/> */
+}
 
 export default ({ width, height, events = false }) => {
   if (width < 10) return <div />;
 
   const world = topojson.feature(topology, topology.objects.units);
 
-  // const meteorData = topojson.feature(meteorStrikes, meteorStrikes.foo);
+  const projection = d3
+    .geoMercator()
+    .scale(width / 630 * 100)
+    .translate([width / 2, height / 2 + 50]);
 
-  console.log(JSON.stringify(meteorStrikes, null, 2));
-  // console.log(JSON.stringify(topology, null, 2));
+  const meteorPoints = meteorStrikes.features.map((feature, i) => (
+    <GlyphCircle
+      className="dot"
+      key={`point-${i}`}
+      opacity="0.5"
+      fill={"#E91E63"}
+      left={
+        feature.geometry
+          ? `${projection(feature.geometry.coordinates)[0]}`
+          : 444
+      }
+      top={
+        feature.geometry
+          ? `${projection(feature.geometry.coordinates)[1]}`
+          : 444
+      }
+      size={i % 3 === 0 ? 50 : 12}
+      onMouseEnter={() => event => {
+        if (tooltipTimeout) clearTimeout(tooltipTimeout);
+        props.showTooltip({
+          tooltipLeft: projection(feature.geometry.coordinates)[0],
+          tooltipTop: projection(feature.geometry.coordinates)[1] + 20,
+          tooltipData: point
+        });
+      }}
+      onTouchStart={() => event => {
+        if (tooltipTimeout) clearTimeout(tooltipTimeout);
+        props.showTooltip({
+          tooltipLeft: projection(feature.geometry.coordinates)[0],
+          tooltipTop: projection(feature.geometry.coordinates)[1] - 30,
+          tooltipData: point
+        });
+      }}
+      onMouseLeave={() => event => {
+        tooltipTimeout = setTimeout(() => {
+          props.hideTooltip();
+        }, 300);
+      }}
+    />
+  ));
 
   return (
     <svg width={width} height={height}>
@@ -48,6 +98,7 @@ export default ({ width, height, events = false }) => {
           alert(`Clicked: ${data.properties.name} (${data.id})`);
         }}
       />
+      {meteorPoints}
     </svg>
   );
 };

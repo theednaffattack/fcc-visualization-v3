@@ -69,13 +69,12 @@ const renderTooltipFunc = ({ event, datum, data, color }) => (
 export default props => (
   <WithTooltip
     renderTooltip={({ event, datum, color }) => (
-      <div>
+      <div style={{textAlign:"left"}}>
         <StyledXH3>{datum.y}</StyledXH3>
         <StyledP>{bicycleTimingData(datum.x)}</StyledP>
         <StyledP>{datum.name}</StyledP>
         <StyledP>{datum.nationality}</StyledP>
-        {datum.allegation ? <StyledP>{datum.allegation}</StyledP> : <StyledP>He's clean!!!</StyledP> }
-        <StyledP>{datum.url}</StyledP>
+        {datum.allegation ? <StyledP> <a href={datum.url}>{datum.allegation}</a></StyledP> : <StyledP>He's clean!!!</StyledP> }
       </div>
     )}
     tooltipProps={{

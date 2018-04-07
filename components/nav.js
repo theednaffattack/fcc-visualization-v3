@@ -5,6 +5,7 @@ const links = [
   { href: './barchart', label: 'Bar Chart' },
   { href: './scatterplot', label: 'Scatterplot' },
   { href: './geomap', label: 'GeoMercator' },
+  { href: './heatmap', label: 'Heatmap' },
   { href: 'https://github.com/theednaffattack/fcc-visualization-v3', label: 'Github' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`
