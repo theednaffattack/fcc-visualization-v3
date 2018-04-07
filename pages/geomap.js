@@ -5,14 +5,13 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 
 import GeoMercator from "../components/GeoMercator";
-import topology from '../static/meteor-strike-data.json';
-import meteorStrikes from '../static/meteor-strike-data.json';
+import topology from "../static/meteor-strike-data.json";
+import meteorStrikes from "../static/meteor-strike-data.json";
 
 // import DataTable from "../components/DataTable";
 
 // const data = await import('../data/fcc-json-response-data.json')
 // import * as gdpData from "/Users/eddienaff/Desktop/gitToDelete/data-ui/data/fcc-json-response-data.json";
-
 
 // const formattedData = gdpData.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
 // const formattedAlpsData = alps.data.map(x => ({ x: new Date(x[0]), y: x[1] }));
@@ -22,8 +21,7 @@ import meteorStrikes from '../static/meteor-strike-data.json';
 // new Date(year, month [, day [, hours [, minutes [, seconds [, milliseconds]]]]]);
 // var t = new Date(2012, 0, 1, 0, x["Time"]);
 
-
-const  description  = "";
+const description = "";
 
 export default () => (
   <div id="blah">
@@ -36,7 +34,13 @@ export default () => (
           <StyledH1>Meteor Strikes</StyledH1>
         </FlexItem>
         <FlexItem>
-          <GeoMercator width={900} height={500} data={meteorStrikes} projectionFunc={meteorStrikes} />
+          <GeoMercator
+            width={1200}
+            height={700}
+            data={meteorStrikes}
+            events={true}
+            others="fake funk"
+          />
         </FlexItem>
         <FlexItem>{description}</FlexItem>
       </Row>
@@ -49,13 +53,13 @@ export default () => (
 
 const StyledH1 = styled.h1`
   color: #ca1f73;
-  margin-top: 6px
+  margin-top: 6px;
 `;
 
 const StyledH3 = styled.h2`
-color: steelblue;
-margin-bottom: 0;
-`
+  color: steelblue;
+  margin-bottom: 0;
+`;
 
 const FlexContainer = styled.div`
   padding: 0;

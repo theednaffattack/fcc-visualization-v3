@@ -69,12 +69,19 @@ const renderTooltipFunc = ({ event, datum, data, color }) => (
 export default props => (
   <WithTooltip
     renderTooltip={({ event, datum, color }) => (
-      <div style={{textAlign:"left"}}>
+      <div style={{ textAlign: "left" }}>
         <StyledXH3>{datum.y}</StyledXH3>
         <StyledP>{bicycleTimingData(datum.x)}</StyledP>
         <StyledP>{datum.name}</StyledP>
         <StyledP>{datum.nationality}</StyledP>
-        {datum.allegation ? <StyledP> <a href={datum.url}>{datum.allegation}</a></StyledP> : <StyledP>He's clean!!!</StyledP> }
+        {datum.allegation ? (
+          <StyledP>
+            {" "}
+            <a href={datum.url}>{datum.allegation}</a>
+          </StyledP>
+        ) : (
+          <StyledP>He's clean!!!</StyledP>
+        )}
       </div>
     )}
     tooltipProps={{
@@ -88,8 +95,22 @@ export default props => (
   >
     <ResponsiveXYChart
       ariaLabel="Required label"
-      xScale={{ type: "time" }}
-      yScale={{ type: "linear" }}
+      xScale={
+        (console.log(new Date(Math.min(...props.data.map(obj => obj.x)))),
+        {
+          type: "linear",
+          range: [props.width - 127, 0],
+          domain: [
+            new Date(Math.min(...props.data.map(obj => obj.x))),
+            new Date(Math.max(...props.data.map(obj => obj.x)))
+          ]
+        })
+      }
+      yScale={{
+        type: "linear",
+        range: [0, props.height - 127],
+        domain: [0, 35]
+      }}
       width={props.width}
       height={props.height}
       renderTooltip={null}
