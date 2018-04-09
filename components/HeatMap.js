@@ -72,23 +72,6 @@ export default ({
         rx={14}
         fill="#28272c"
       />
-
-  {/* <WithTooltip
-    renderTooltip={({ event, datum, color }) => (
-      <div>
-        <StyledXH3>${datum.y}</StyledXH3>
-        <StyledP>{formattedDate(datum.x)}</StyledP>
-      </div>
-    )}
-    tooltipProps={{
-      offsetTop: 0,
-      style: {
-        // color: "blue",
-        backgroundColor: "goldenrod",
-        opacity: 0.9
-      }
-    }}
-  > */}
       <Group top={margin.top} left={5}>
         <HeatmapCircle
           data={data}

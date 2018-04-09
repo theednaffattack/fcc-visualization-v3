@@ -7,6 +7,7 @@ import topology from "../static/world-topo.json";
 import meteorStrikes from "../static/meteor-strike-data.json";
 import * as d3 from "d3";
 import { withTooltip, Tooltip } from "@vx/tooltip";
+import {ReactSVGPanZoom} from 'react-svg-pan-zoom';
 
 let tooltipTimeout;
 
@@ -65,7 +66,17 @@ export default withTooltip(props => {
   ));
 
   return (
-    <div>
+    <div>       
+
+
+    <ReactSVGPanZoom
+      style={{ borderRadius: "25"}}
+      width={width} height={height} 
+      onClick={event => console.log('click', event.x, event.y, event.originalEvent)}
+      onMouseUp={event => console.log('up', event.x, event.y)}
+      onMouseMove={event => console.log('move', event.x, event.y)}
+      onMouseDown={event => console.log('down', event.x, event.y)}>
+
       <svg width={width} height={height}>
         <RadialGradient
           id="geo_mercator_radial"
@@ -178,7 +189,10 @@ export default withTooltip(props => {
             }}
           />
         ))}
+
       </svg>
+
+        </ReactSVGPanZoom>
       {props.tooltipOpen && (
         <Tooltip left={props.tooltipLeft} top={props.tooltipTop}>
           <div>

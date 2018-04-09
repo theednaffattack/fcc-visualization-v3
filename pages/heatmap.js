@@ -17,7 +17,7 @@ export default () => (
       <Row>
         <FlexItem>
           <StyledH3>HeatMap</StyledH3>
-          <StyledH1>Of Something Interesting</StyledH1>
+          <StyledH1>Of Interesting Stuff</StyledH1>
         </FlexItem>
         <FlexItem>
           <HeatMap 
