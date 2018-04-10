@@ -150,7 +150,7 @@ export default withTooltip(props => {
             onMouseEnter={() => event => {
               if (tooltipTimeout) clearTimeout(tooltipTimeout);
               props.showTooltip({
-                tooltipLeft: projection(feature.geometry.coordinates)[0] + 450,
+                tooltipLeft: projection(feature.geometry.coordinates)[0] + 320,
                 tooltipTop: projection(feature.geometry.coordinates)[1] + 20,
                 tooltipData: {
                   name: feature.properties.name,
@@ -162,7 +162,7 @@ export default withTooltip(props => {
             onTouchStart={() => event => {
               if (tooltipTimeout) clearTimeout(tooltipTimeout);
               props.showTooltip({
-                tooltipLeft: projection(feature.geometry.coordinates)[0] + 450,
+                tooltipLeft: projection(feature.geometry.coordinates)[0] + 320,
                 tooltipTop: projection(feature.geometry.coordinates)[1] - 30,
                 tooltipData: {
                   name: feature.properties.name,

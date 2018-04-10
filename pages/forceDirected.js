@@ -4,7 +4,14 @@ import styled from "styled-components";
 import Head from "../components/head";
 import Nav from "../components/nav";
 
-import HeatMap from "../components/HeatMap";
+import ResponsiveNetwork, {
+  forceData,
+  graph,
+  NetworkWithCustomizedRenderer
+} from "../components/Network";
+
+// import ForceDirectedToo from "../components/ForceDirectedToo";
+import ForceDirectedThree from "../components/ForceDirectedThree";
 
 const description = "";
 
@@ -15,11 +22,11 @@ export default () => (
     <FlexContainer>
       <Row>
         <FlexItem>
-          <StyledH3>HeatMap</StyledH3>
-          <StyledH1>Of Something Interesting</StyledH1>
+          <StyledH3>Force Directed</StyledH3>
+          <StyledH1>Contiguous Countries</StyledH1>
         </FlexItem>
         <FlexItem>
-          <HeatMap width={800} height={640} />
+          <ForceDirectedThree height={500} width={500} />
         </FlexItem>
         <FlexItem>{description}</FlexItem>
       </Row>
