@@ -7,6 +7,7 @@ import topology from "../static/world-topo.json";
 import meteorStrikes from "../static/meteor-strike-data.json";
 import * as d3 from "d3";
 import { withTooltip, Tooltip } from "@vx/tooltip";
+import { ReactSVGPanZoom } from "react-svg-pan-zoom";
 
 let tooltipTimeout;
 
@@ -65,133 +66,174 @@ export default withTooltip(props => {
   ));
 
   return (
-    <div>
-      <svg width={width} height={height}>
-        <RadialGradient
-          id="geo_mercator_radial"
-          from="#55bdd5"
-          to="#4f3681"
-          r={"80%"}
-        />
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={`url(#geo_mercator_radial)`}
-          rx={14}
-        />
-        <Mercator
-          data={world.features}
-          scale={width / 630 * 100}
-          translate={[width / 2, height / 2 + 50]}
-          fill={() => "#8be4c5"}
-          stroke={() => "#5fcfa7"}
-          onClick={data => event => {
-            if (!events) return;
-            alert(`Clicked: ${data.properties.name} (${data.id})`);
+    <div
+      className="flexContainer"
+      style={{
+        padding: 0,
+        margin: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      <div
+        className="row"
+        style={{
+          width: "auto",
+          border: 1
+        }}
+      >
+        <div
+          className="flexItem"
+          style={{
+            height: height,
+            margin: 10
           }}
-        />
-        {meteorStrikes.features.map((feature, i) => (
-          <GlyphCircle
-            className="dot"
-            key={`point-${i}`}
-            opacity="0.5"
-            fill={
-              feature.properties.mass >= 100000 // "#E91E63"
-                ? "#E91E63"
-                : feature.properties.mass >= 50000 && // "purple"
-                  feature.properties.mass < 100000
-                  ? "purple"
-                  : feature.properties.mass >= 20000 && // "orange"
-                    feature.properties.mass < 50000
-                    ? "orange"
-                    : feature.properties.mass >= 10000 && // "green"
-                      feature.properties.mass < 20000
-                      ? "green"
-                      : feature.properties.mass >= 2500 && // "yellow"
-                        feature.properties.mass < 10000
-                        ? "yellow"
-                        : feature.properties.mass >= 900 && // "red"
-                          feature.properties.mass < 2500
-                          ? "red"
-                          : 12
+        >
+          <ReactSVGPanZoom
+            style={{ borderRadius: "25" }}
+            width={width}
+            height={height}
+            onClick={event =>
+              console.log("click", event.x, event.y, event.originalEvent)
             }
-            left={
-              feature.geometry
-                ? `${projection(feature.geometry.coordinates)[0]}`
-                : -10
-            }
-            top={
-              feature.geometry
-                ? `${projection(feature.geometry.coordinates)[1]}`
-                : -10
-            }
-            size={
-              feature.properties.mass >= 100000 // "#E91E63"
-                ? 200
-                : feature.properties.mass >= 50000 && // "purple"
-                  feature.properties.mass < 100000
-                  ? 100
-                  : feature.properties.mass >= 20000 && // "orange"
-                    feature.properties.mass < 50000
-                    ? 75
-                    : feature.properties.mass >= 10000 && // "green"
-                      feature.properties.mass < 20000
-                      ? 50
-                      : feature.properties.mass >= 2500 && // "yellow"
-                        feature.properties.mass < 10000
-                        ? 25
-                        : feature.properties.mass >= 900 && // "red"
-                          feature.properties.mass < 2500
-                          ? 18
-                          : 12
-            }
-            onMouseEnter={() => event => {
-              if (tooltipTimeout) clearTimeout(tooltipTimeout);
-              props.showTooltip({
-                tooltipLeft: projection(feature.geometry.coordinates)[0] + 320,
-                tooltipTop: projection(feature.geometry.coordinates)[1] + 20,
-                tooltipData: {
-                  name: feature.properties.name,
-                  mass: feature.properties.mass,
-                  year: feature.properties.year.substring(0, 4)
-                }
-              });
-            }}
-            onTouchStart={() => event => {
-              if (tooltipTimeout) clearTimeout(tooltipTimeout);
-              props.showTooltip({
-                tooltipLeft: projection(feature.geometry.coordinates)[0] + 320,
-                tooltipTop: projection(feature.geometry.coordinates)[1] - 30,
-                tooltipData: {
-                  name: feature.properties.name,
-                  mass: feature.properties.mass,
-                  year: feature.properties.year.substring(0, 4)
-                }
-              });
-            }}
-            onMouseLeave={() => event => {
-              tooltipTimeout = setTimeout(() => {
-                props.hideTooltip();
-              }, 300);
-            }}
-          />
-        ))}
-      </svg>
-      {props.tooltipOpen && (
-        <Tooltip left={props.tooltipLeft} top={props.tooltipTop}>
-          <div>
-            <strong>name:</strong> {props.tooltipData["name"]}
-          </div>
-          <div>
-            <strong>mass:</strong> {props.tooltipData["mass"]}
-          </div>
-          <div>
-            <strong>year:</strong> {props.tooltipData["year"]}
-          </div>
-        </Tooltip>
-      )}
+            onMouseUp={event => console.log("up", event.x, event.y)}
+            onMouseMove={event => console.log("move", event.x, event.y)}
+            onMouseDown={event => console.log("down", event.x, event.y)}
+          >
+            <svg width={width} height={height}>
+              <RadialGradient
+                id="geo_mercator_radial"
+                from="#55bdd5"
+                to="#4f3681"
+                r={"80%"}
+              />
+              <rect
+                x={0}
+                y={0}
+                width={width}
+                height={height}
+                fill={`url(#geo_mercator_radial)`}
+                rx={14}
+              />
+              <Mercator
+                data={world.features}
+                scale={width / 630 * 100}
+                translate={[width / 2, height / 2 + 50]}
+                fill={() => "#8be4c5"}
+                stroke={() => "#5fcfa7"}
+                onClick={data => event => {
+                  if (!events) return;
+                  alert(`Clicked: ${data.properties.name} (${data.id})`);
+                }}
+              />
+              {meteorStrikes.features.map((feature, i) => (
+                <GlyphCircle
+                  className="dot"
+                  key={`point-${i}`}
+                  opacity="0.5"
+                  fill={
+                    feature.properties.mass >= 100000 // "#E91E63"
+                      ? "#E91E63"
+                      : feature.properties.mass >= 50000 && // "purple"
+                        feature.properties.mass < 100000
+                        ? "purple"
+                        : feature.properties.mass >= 20000 && // "orange"
+                          feature.properties.mass < 50000
+                          ? "orange"
+                          : feature.properties.mass >= 10000 && // "green"
+                            feature.properties.mass < 20000
+                            ? "green"
+                            : feature.properties.mass >= 2500 && // "yellow"
+                              feature.properties.mass < 10000
+                              ? "yellow"
+                              : feature.properties.mass >= 900 && // "red"
+                                feature.properties.mass < 2500
+                                ? "red"
+                                : 12
+                  }
+                  left={
+                    feature.geometry
+                      ? `${projection(feature.geometry.coordinates)[0]}`
+                      : -10
+                  }
+                  top={
+                    feature.geometry
+                      ? `${projection(feature.geometry.coordinates)[1]}`
+                      : -10
+                  }
+                  size={
+                    feature.properties.mass >= 100000 // "#E91E63"
+                      ? 200
+                      : feature.properties.mass >= 50000 && // "purple"
+                        feature.properties.mass < 100000
+                        ? 100
+                        : feature.properties.mass >= 20000 && // "orange"
+                          feature.properties.mass < 50000
+                          ? 75
+                          : feature.properties.mass >= 10000 && // "green"
+                            feature.properties.mass < 20000
+                            ? 50
+                            : feature.properties.mass >= 2500 && // "yellow"
+                              feature.properties.mass < 10000
+                              ? 25
+                              : feature.properties.mass >= 900 && // "red"
+                                feature.properties.mass < 2500
+                                ? 18
+                                : 12
+                  }
+                  onMouseEnter={() => event => {
+                    if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                    props.showTooltip({
+                      tooltipLeft:
+                        projection(feature.geometry.coordinates)[0] + 320,
+                      tooltipTop:
+                        projection(feature.geometry.coordinates)[1] + 20,
+                      tooltipData: {
+                        name: feature.properties.name,
+                        mass: feature.properties.mass,
+                        year: feature.properties.year.substring(0, 4)
+                      }
+                    });
+                  }}
+                  onTouchStart={() => event => {
+                    if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                    props.showTooltip({
+                      tooltipLeft:
+                        projection(feature.geometry.coordinates)[0] + 320,
+                      tooltipTop:
+                        projection(feature.geometry.coordinates)[1] - 30,
+                      tooltipData: {
+                        name: feature.properties.name,
+                        mass: feature.properties.mass,
+                        year: feature.properties.year.substring(0, 4)
+                      }
+                    });
+                  }}
+                  onMouseLeave={() => event => {
+                    tooltipTimeout = setTimeout(() => {
+                      props.hideTooltip();
+                    }, 300);
+                  }}
+                />
+              ))}
+            </svg>
+          </ReactSVGPanZoom>
+          {props.tooltipOpen && (
+            <Tooltip left={props.tooltipLeft} top={props.tooltipTop}>
+              <div>
+                <strong>name:</strong> {props.tooltipData["name"]}
+              </div>
+              <div>
+                <strong>mass:</strong> {props.tooltipData["mass"]}
+              </div>
+              <div>
+                <strong>year:</strong> {props.tooltipData["year"]}
+              </div>
+            </Tooltip>
+          )}
+        </div>
+      </div>
     </div>
   );
 });

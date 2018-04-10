@@ -35,8 +35,8 @@ export default () => (
         </FlexItem>
         <FlexItem>
           <GeoMercator
-            width={1200}
-            height={700}
+            width={900}
+            height={500}
             data={meteorStrikes}
             events={true}
             others="fake funk"
